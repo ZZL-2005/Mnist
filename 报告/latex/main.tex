@@ -21,7 +21,7 @@
 \usepackage{setspace}
 % 在文档导言区添加
 \usepackage{array}
-
+\usepackage{algorithm2e}
 % 设置页眉页脚
 \pagestyle{fancy}
 \fancyhf{}
@@ -89,7 +89,7 @@
 
 此外，近年来也有部分工作关注神经网络模块化结构，如将网络分解为特征提取器与分类器两部分进行独立分析 \cite{yosinski2014transferable}。这些研究表明，特征提取器往往承担了更重要的学习任务，而分类器部分则可以通过少量微调快速适应新任务。
 
-本研究在上述工作的基础上，进一步引入“dd”等操作，系统性分析特征提取器与分类器的作用机制，并结合中间层特征图可视化，构建出一套完整的实验体系用于理解神经网络的内部行为。
+本研究在上述工作的基础上，进一步引入“参数冻结”等操作，系统性分析特征提取器与分类器的作用机制，并结合中间层特征图可视化，构建出一套完整的实验体系用于理解神经网络的内部行为。
 
 \textbf{项目源代码：}\url{https://github.com/ZZL-2005/Mnist}
 \section{手写数字识别数据集(MNIST)}
@@ -98,19 +98,19 @@ MNIST（Modified National Institute of Standards and Technology）是一个经�
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../images/bqfb.png}
-    \caption{td}
+    \caption{标签分布}
     \label{fig:td}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{../images/xsfb.png}
-    \caption{xd}
+    \caption{像素分布}
     \label{fig:xd}
 \end{figure}
 图\ref{fig:td}展示了MNIST数据集中各个数字的标签分布情况，可以看出每个数字的样本数量大致相同，表明数据集是均衡的。图\ref{fig:xd}则展示了所有图像中像素值统计特征。
 像素值特征统计之前，所有像素都被归一化到 $[0, 1]$ 区间。左图统计了每个位置的像素均值，右图统计了每个位置的像素标准差。可以看到，数据集所代表的都是典型的手写数字图像，集中于图像中央，不存在大量的偏离中央的数据。
 在我们的后续实验中，为了提高训练效率，节约算力资源，我们在不影响实验结果的前提下对数据集进行了裁剪，只取一部分数据作为我们的数据集\ref{fig:sssss}。
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{../images/zjfb.png}
     \caption{子集分布}
@@ -129,6 +129,49 @@ MNIST（Modified National Institute of Standards and Technology）是一个经�
 参考图\ref{fig:mlpstructure}，全连接神经网络是一个层级结构，每一层有多个神经元，且每一个神经元都对前一层和后一层的所有神经元实现全连接。
 每一条连接都有一个权重参数，一个神经元的输入是前一层所有神经元的输出的加权和再加上一个偏置项，输出则是输入经过激活函数处理后的结果。
 最后一层神经元的数目代表了分类的类别数，输出结果经过softmax函数执行归一化处理后，得到每个类别的概率分布。权重与偏置都基于梯度优化算法，梯度的计算通过反向传播算法实现。关于模型和反向传播算法更加详细的介绍，请参考附录\ref{sec:mlpbp}。
+
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{训练数据集 $\{(x^{(i)}, y^{(i)})\}_{i=1}^{m}$，学习率 $\alpha$，网络权重 $W^{(l)}$，偏置 $b^{(l)}$}
+\KwResult{优化后的网络参数}
+
+\textbf{初始化：}随机初始化所有权重和偏置\;
+
+\For{每个训练轮次}{
+    \For{每个训练样本 $(x^{(i)}, y^{(i)})$}{
+        \textbf{前向传播：}\;
+        $a^{(0)} = x^{(i)}$\;
+        \For{$l = 1$ \KwTo $L$}{
+            $z^{(l)} = W^{(l)} a^{(l-1)} + b^{(l)}$\;
+            $a^{(l)} = \sigma(z^{(l)})$\;
+        }
+        
+        \textbf{计算输出层误差：}\;
+        $\delta^{(L)} = \nabla_a C \odot \sigma'(z^{(L)})$\;
+        
+        \textbf{反向传播误差：}\;
+        \For{$l = L-1$ \KwTo $1$}{
+            $\delta^{(l)} = ((W^{(l+1)})^T \delta^{(l+1)}) \odot \sigma'(z^{(l)})$\;
+        }
+        
+        \textbf{计算梯度：}\;
+        \For{$l = 1$ \KwTo $L$}{
+            $\frac{\partial C}{\partial W^{(l)}} = \delta^{(l)} (a^{(l-1)})^T$\;
+            $\frac{\partial C}{\partial b^{(l)}} = \delta^{(l)}$\;
+        }
+        
+        \textbf{更新参数：}\;
+        \For{$l = 1$ \KwTo $L$}{
+            $W^{(l)} = W^{(l)} - \alpha \frac{\partial C}{\partial W^{(l)}}$\;
+            $b^{(l)} = b^{(l)} - \alpha \frac{\partial C}{\partial b^{(l)}}$\;
+        }
+    }
+}
+
+\caption{多层感知机反向传播算法}
+\label{alg:mlp_backprop}
+\end{algorithm}
 \subsection{实验一：简单反向传播的实现}
 \subsubsection{实验设置}
 本实验中，我们手动实现了一个仅含一个隐藏层的MLP模型，以及MLP模型上的BP算法。
@@ -218,14 +261,14 @@ MNIST（Modified National Institute of Standards and Technology）是一个经�
 图\ref{fig:8}展示了hidden layer神经元数目为8时，在不同轮次的t-SNE可视化结果。
 我们可以观察到，最开始特征空间中点基本是散布的，几乎不存在明显的点簇。但是随着训练轮次的不断增加，我们逐渐观察到特征空间出现了明显的点簇聚类现象。
 这再次印证了神经网络的训练过程与特征空间点簇聚类效果的密切关系。
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{../images/pa/tsne_comparison_epoch_60.png}
     \caption{同轮次，不同模型的t-SNE可视化结果}
     \label{fig:60}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{../images/pa/tsne_evolution_hidden_8.png}
     \caption{同模型，不同轮次的t-SNE可视化结果}
@@ -333,14 +376,14 @@ MNIST（Modified National Institute of Standards and Technology）是一个经�
     \label{fig:interactive1}
 \end{figure}
 如上所示，无论是mlp还是cnn，模型都只是学会了针对数据集的识别模式，而并没有真正学会如何识别一个数字。
-
+综上，我们认为模型的识别能力并非真正的“学习”，而是对数据集模式的记忆。
 
 \section{结语}
 本文围绕手写数字识别这一经典任务，系统性地分析了神经网络在该任务中的建模能力与行为机制。我们并没有痴迷于套壳更大更强的模型，这在手写数字这一任务上是无意义的，相反，我们深入挖掘了神经网络的特征提取与分类能力，尝试揭示其“学习”本质。
 
 我们从最基础的多层感知机（MLP）出发，首先实现了一个手动反向传播模型，深入理解了网络训练过程中的参数更新机制；随后，我们探索了隐层神经元数量对模型性能与特征空间聚类效果的影响，并通过 t-SNE 降维可视化加深了理解。
 
-进一步地，我们将神经网络视作特征提取器与分类器的组合结构，设计了dd，验证了“特征空间对齐分类器”的假设。最后，我们训练了简单的卷积神经网络，并可视化其中间特征图，直观展示了卷积操作在多层网络中的语义抽象过程。
+进一步地，我们将神经网络视作特征提取器与分类器的组合结构，设计了参数冻结实验，验证了“特征空间对齐分类器”的假设。最后，我们训练了简单的卷积神经网络，并可视化其中间特征图，直观展示了卷积操作在多层网络中的语义抽象过程。
 
 我们发现，神经网络的强大能力并非仅来源于其“深”或“宽”，而是来自其能在训练数据上自发构造出有判别性的特征空间——这是其“学习能力”的真正体现。然而，我们也注意到：在数据分布非常集中、样本缺乏变化性时，模型往往只是“记住”了数据结构，而非真正学会了数字本质。
 
