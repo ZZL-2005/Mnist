@@ -1,0 +1,66 @@
+\begin{thebibliography}{9}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alpaydin(2004)]{alpaydin2004introduction}
+Ethem Alpaydin.
+\newblock \emph{Introduction to Machine Learning}.
+\newblock MIT Press, 2004.
+
+\bibitem[Cortes and Vapnik(1995)]{cortes1995support}
+Corinna Cortes and Vladimir Vapnik.
+\newblock Support-vector networks.
+\newblock \emph{Machine Learning}, 20\penalty0 (3):\penalty0 273--297, 1995.
+
+\bibitem[Krizhevsky et~al.(2012)Krizhevsky, Sutskever, and
+  Hinton]{krizhevsky2012imagenet}
+Alex Krizhevsky, Ilya Sutskever, and Geoffrey~E Hinton.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems}, pages
+  1097--1105, 2012.
+
+\bibitem[LeCun et~al.(1998)LeCun, Bottou, Bengio, and
+  Haffner]{lecun1998gradient}
+Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock \emph{Proceedings of the IEEE}, 86\penalty0 (11):\penalty0
+  2278--2324, 1998.
+\newblock \doi{10.1109/5.726791}.
+
+\bibitem[Rosenblatt(1958)]{Rosenblatt1958}
+Frank Rosenblatt.
+\newblock The perceptron: A probabilistic model for information storage and
+  organization in the brain.
+\newblock \emph{Psychological Review}, 65\penalty0 (6):\penalty0 386--408,
+  1958.
+\newblock \doi{10.1037/h0042519}.
+
+\bibitem[Rumelhart et~al.(1986)Rumelhart, Hinton, and Williams]{Rumelhart1986}
+David~E. Rumelhart, Geoffrey~E. Hinton, and Ronald~J. Williams.
+\newblock Learning representations by back-propagating errors.
+\newblock \emph{Nature}, 323\penalty0 (6088):\penalty0 533--536, 1986.
+\newblock \doi{10.1038/323533a0}.
+
+\bibitem[van~der Maaten and Hinton(2008)]{maaten2008visualizing}
+Laurens van~der Maaten and Geoffrey Hinton.
+\newblock Visualizing data using t-sne.
+\newblock \emph{Journal of Machine Learning Research}, 9\penalty0
+  (11):\penalty0 2579--2605, 2008.
+
+\bibitem[Yosinski et~al.(2014)Yosinski, Clune, Bengio, and
+  Lipson]{yosinski2014transferable}
+Jason Yosinski, Jeff Clune, Yoshua Bengio, and Hod Lipson.
+\newblock How transferable are features in deep neural networks?
+\newblock In \emph{Advances in Neural Information Processing Systems}, pages
+  3320--3328, 2014.
+
+\bibitem[Zeiler and Fergus(2014)]{zeiler2014visualizing}
+Matthew~D Zeiler and Rob Fergus.
+\newblock Visualizing and understanding convolutional networks.
+\newblock In \emph{European Conference on Computer Vision}, pages 818--833.
+  Springer, 2014.
+
+\end{thebibliography}

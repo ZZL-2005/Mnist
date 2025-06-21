@@ -1,0 +1,35 @@
+\contentsline {section}{\numberline {1}引言}{3}{section.1}%
+\contentsline {section}{\numberline {2}相关工作}{3}{section.2}%
+\contentsline {section}{\numberline {3}手写数字识别数据集(MNIST)}{3}{section.3}%
+\contentsline {section}{\numberline {4}全连接神经网络}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}模型架构}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}实验一：简单反向传播的实现}{6}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}实验设置}{6}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}结果分析}{7}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}实验二：隐层神经元的作用分析}{8}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}实验设置}{8}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}结果分析}{8}{subsubsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.4}实验三：特征提取器与分类器的解耦分析}{10}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}分析思路}{10}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}实验设置}{11}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}实验结果分析}{11}{subsubsection.4.4.3}%
+\contentsline {section}{\numberline {5}卷积神经网络}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}模型架构与实验设置}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}实验结果}{12}{subsection.5.2}%
+\contentsline {section}{\numberline {6}探索：神经网络是记忆还是学习？}{13}{section.6}%
+\contentsline {section}{\numberline {7}结语}{16}{section.7}%
+\contentsline {section}{\numberline {A}反向传播算法}{18}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}多层感知机反向传播}{18}{subsection.A.1}%
+\contentsline {paragraph}{误差项的定义}{18}{paragraph*.17}%
+\contentsline {paragraph}{向后传播}{18}{paragraph*.18}%
+\contentsline {paragraph}{梯度计算}{18}{paragraph*.19}%
+\contentsline {paragraph}{参数更新}{18}{paragraph*.20}%
+\contentsline {subsection}{\numberline {A.2}卷积神经网络反向传播}{19}{subsection.A.2}%
+\contentsline {paragraph}{误差项}{19}{paragraph*.21}%
+\contentsline {paragraph}{卷积核梯度}{19}{paragraph*.22}%
+\contentsline {paragraph}{梯度反传到上一层特征图}{19}{paragraph*.23}%
+\contentsline {paragraph}{池化层梯度}{19}{paragraph*.24}%
+\contentsline {paragraph}{参数更新}{19}{paragraph*.25}%
+\contentsline {section}{\numberline {B}tsne降维展示特征空间实验结果}{20}{appendix.B}%
+\contentsline {section}{\numberline {C}冻结实验结果}{25}{appendix.C}%
+\contentsline {section}{\numberline {D}团队分工}{27}{appendix.D}%
